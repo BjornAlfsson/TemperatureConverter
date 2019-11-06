@@ -3,6 +3,9 @@ package controller;
 import model.Model;
 import view.View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Controller {
 
     private Model model = new Model();
@@ -12,6 +15,17 @@ public class Controller {
      * Start the application by showing a window for the user to do something
      */
     public void start() {
-        model.model();
+        addListener();
+    }
+
+    private void addListener() {
+       view.sendTemperature(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               Double result = model.toCelsius(view.getTemperature());
+               view.showTemperature(result);
+           }
+       });
+
     }
 }
