@@ -96,7 +96,12 @@ public class View {
     }
 
     public void showTemperature(Double result) {
-        response.setText(result.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append(getTemperature() + " degrees in ");
+
+        sb.append(getTypeOfTemperature() ? "Fahrenheit is " + result.toString() + " in Celsius." : "Celsius is " + result.toString() + " in Fahrenheit.");
+
+        response.setText(sb.toString());
     }
 
     public Boolean getTypeOfTemperature() {
