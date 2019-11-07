@@ -15,10 +15,11 @@ import java.awt.event.ActionListener;
 public class View {
 
     private JFrame jFrame;
-    private JLabel textLabel, response;
-    private JPanel jPanel;
+    private JLabel textLabel, response, celsiusText, fahrenheitText;
     private JButton jButton;
-    private JTextField jTextField = new JTextField("1");
+    private JTextField jTextField;
+    private JRadioButton celsius, fahrenheit;
+    private Boolean typeOfTemperature;  //false = Fahrenheit, true = Celsius
 
 
     public View() {
@@ -27,15 +28,58 @@ public class View {
 
     public void showWindow() {
         jFrame = new JFrame("Temperature Converter");
-
         Container container = jFrame.getContentPane();
-
         jFrame.setSize(800, 100);
-        textLabel = new JLabel("Enter temperature: ");
+
         jButton = new JButton("Enter");
+        jButton.setEnabled(false);
+
+        celsiusText = new JLabel("To Celsius");
+        celsius = new JRadioButton();
+        celsius.setSelected(false);
+        celsius.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                typeOfTemperature = true;
+                jButton.setEnabled(true);
+            }
+        });
+
+        fahrenheitText = new JLabel("To Fahrenheit");
+        fahrenheit = new JRadioButton();
+        fahrenheit.setSelected(false);
+        fahrenheit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                typeOfTemperature = false;
+                jButton.setEnabled(true);
+            }
+        });
+
+        ButtonGroup bgroup = new ButtonGroup();
+
+        bgroup.add(celsius);
+        bgroup.add(fahrenheit);
+
+        jTextField = new JTextField();
+        jTextField.setPreferredSize(new Dimension( 100, 30));
+
+        textLabel = new JLabel("Enter temperature: ");
+        response = new JLabel();
+
+        container.setLayout(new FlowLayout());
+
+        container.add(celsiusText);
+        container.add(celsius);
+
+        container.add(fahrenheitText);
+        container.add(fahrenheit);
+
         container.add(textLabel);
+        container.add(jTextField);
         container.add(jButton);
 
+        container.add(response);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
     }
@@ -49,6 +93,10 @@ public class View {
     }
 
     public void showTemperature(Double result) {
-        System.out.println("In view " + result);
+        response.setText(result.toString());
+    }
+
+    public Boolean getTypeOfTemperature() {
+        return typeOfTemperature;
     }
 }

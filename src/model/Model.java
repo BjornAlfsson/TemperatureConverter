@@ -8,5 +8,7 @@ public class Model {
         return (fahrenheit- 32) / 1.8000;
     }
 
-
+    public Double toFahrenheit(Double celsius) {
+        return (celsius * 1.8) + 32;
+    }
 }

@@ -22,7 +22,15 @@ public class Controller {
        view.sendTemperature(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               Double result = model.toCelsius(view.getTemperature());
+               Double result = 0.0;
+               Boolean typeOfTemperature = view.getTypeOfTemperature();
+
+               if ( typeOfTemperature == true ) {
+                   result = model.toCelsius(view.getTemperature());
+               } else {
+                   result = model.toFahrenheit(view.getTemperature());
+               }
+
                view.showTemperature(result);
            }
        });
