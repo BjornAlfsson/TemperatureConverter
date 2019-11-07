@@ -25,12 +25,7 @@ public class Controller {
                Double result = 0.0;
                Boolean typeOfTemperature = view.getTypeOfTemperature();
 
-               if ( typeOfTemperature == true ) {
-                   result = model.toCelsius(view.getTemperature());
-               } else {
-                   result = model.toFahrenheit(view.getTemperature());
-               }
-
+               result = typeOfTemperature ? model.toCelsius(view.getTemperature()) : model.toFahrenheit(view.getTemperature());
                view.showTemperature(result);
            }
        });

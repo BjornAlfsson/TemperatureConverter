@@ -61,7 +61,7 @@ public class View {
         bgroup.add(celsius);
         bgroup.add(fahrenheit);
 
-        jTextField = new JTextField();
+        jTextField = new JTextField("0.0");
         jTextField.setPreferredSize(new Dimension( 100, 30));
 
         textLabel = new JLabel("Enter temperature: ");
@@ -89,6 +89,9 @@ public class View {
     }
 
     public Double getTemperature() {
+        if ( jTextField.getText().trim().length() == 0 ) {
+            return 0.0;
+        }
         return Double.parseDouble(jTextField.getText());
     }
 
